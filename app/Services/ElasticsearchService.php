@@ -26,18 +26,11 @@ class ElasticsearchService
         return $this->client->index($params);
     }
 
-    public function search(string $index, string $query)
+    public function search(string $index, array $query)
     {
         $params = [
             'index' => $index,
-            'body'  => [
-                'query' => [
-                    'multi_match' => [
-                        'query' => $query,
-                        'fields' => ['title', 'content']
-                    ]
-                ]
-            ]
+            'body'  => $query // No extra array wrapping
         ];
 
         return $this->client->search($params);
